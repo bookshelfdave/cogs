@@ -1,21 +1,18 @@
 {
-  "name": "java-ast",
+  "name": "cogs",
   "version": "0.1.0",
-  "description": "Java Parser for JavaScript/TypeScript, based on antlr4ts",
+  "description": "",
   "main": "dist/index.js",
+  "bin": {
+    "cogs": "./bin/cogs"
+  },
   "typings": "dist/index.d.ts",
   "license": "MIT",
-  "repository": "https://github.com/urish/java-ast",
-  "author": "Uri Shaked <uri@codemagic.co.il>",
+  "repository": "",
+  "author": "",
   "keywords": [
-    "ast",
-    "java",
-    "parser",
     "antlr",
-    "antlr4ts",
-    "abstract syntax tree",
-    "parse java",
-    "java parser"
+    "antlr4ts"
   ],
   "files": [
     "dist"
@@ -24,25 +21,23 @@
     "build": "rimraf dist && tsc",
     "format": "prettier --write src/**.ts **/*.json",
     "prepublish": "yarn build",
-    "generate:parser": "antlr4ts -visitor -o src/parser src/parser/JavaLexer.g4 src/parser/JavaParser.g4",
-    "precommit": "lint-staged",
-    "postcommit": "git update-index --again",
+    "antlr": "antlr4ts src/parser/Cogs.g4",
     "test": "jest"
   },
   "devDependencies": {
-    "@types/jest": "^23.1.5",
-    "antlr4ts-cli": "^0.4.0-alpha.4",
-    "husky": "^0.14.3",
-    "jest": "^23.3.0",
-    "lint-staged": "^7.2.0",
-    "prettier": "^1.13.7",
-    "rimraf": "^2.6.2",
-    "ts-jest": "^23.0.0",
-    "tslint": "^5.10.0",
-    "typescript": "~2.8.2"
+    "@types/jest": "^24.0.25",
+    "antlr4ts-cli": "^0.5.0-alpha.3",
+    "husky": "^4.0.6",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.3.0",
+    "tslint": "^5.20.1",
+    "typescript": "~3.7.4"
   },
   "dependencies": {
-    "antlr4ts": "^0.4.1-alpha.0"
+    "antlr4ts": "^0.5.0-alpha.3"
   },
   "lint-staged": {
     "*.{js,json}": [

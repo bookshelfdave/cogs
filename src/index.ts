@@ -1,16 +1,28 @@
 import { ANTLRInputStream, CommonTokenStream } from 'antlr4ts';
-import { JavaLexer } from './parser/JavaLexer';
-import { CompilationUnitContext, JavaParser } from './parser/JavaParser';
-export { CompilationUnitContext };
+import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
+import { CogsLexer } from './parser/CogsLexer';
+import { CogsListener } from './parser/CogsListener';
+import { CogsListenerImpl } from './parser/CogsListenerImpl';
+import { CogsParser } from './parser/CogsParser';
 
-/**
- * Parses the given source code and returns the AST
- * @param source Java source code to parse
- */
-export function parse(source: string): CompilationUnitContext {
-  const chars = new ANTLRInputStream(source);
-  const lexer = new JavaLexer(chars);
-  const tokens = new CommonTokenStream(lexer);
-  const parser = new JavaParser(tokens);
-  return parser.compilationUnit();
+// export { CompilationUnitContext };
+
+class Startup {
+  static main(): number {
+    console.log('Cogs 0.1.0');
+    const source = '1+2\n';
+    const chars = new ANTLRInputStream(source);
+    const lexer = new CogsLexer(chars);
+    const tokens = new CommonTokenStream(lexer);
+    const parser = new CogsParser(tokens);
+    const tree = parser.prog();
+
+    const listener = new CogsListenerImpl();
+    ParseTreeWalker.DEFAULT.walk(listener as CogsListener, tree);
+    const result = listener.getValues().get(tree);
+    console.log('RESULT = ' + result);
+    return 0;
+  }
 }
+
+Startup.main();
